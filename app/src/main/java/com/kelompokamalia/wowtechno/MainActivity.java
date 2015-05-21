@@ -26,20 +26,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listViewBook;
     EditText editTextJudul, editTextNama, editTextHalaman;
 
-
     ArrayList<Buku> arrayBuku = Buku.getBukus();
-
-
-
-    //inisialiasi arraylist yang digunakan pada program ini
-    //ArrayList<String> listOfBook=new ArrayList<>();
-
-
-    //deklarasi arrayadapter
-    //ArrayAdapter<String> adapter;
-
     CustomBukuAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +40,10 @@ public class MainActivity extends AppCompatActivity {
         editTextHalaman = (EditText) findViewById(R.id.inputJumlahHalaman);
         btnSimpan = (Button) findViewById(R.id.btn_simpan);
 
-
-
         adapter = new CustomBukuAdapter(this, arrayBuku);
 
         final ListView listView = (ListView) findViewById(R.id.listView_output);
         listView.setAdapter(adapter);
-
-
-
-        /*listOfBook.add("Laskar Pelangi");
-        listOfBook.add("5 cm");
-        listOfBook.add("Ayat ayat cinta");
-        listOfBook.add("Lima Menara");
-        listOfBook.add("Tutorial Pemrograman Android");
-
-        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listOfBook);
-
-        listViewBook.setAdapter(adapter);*/
 
         listViewBook.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
@@ -89,14 +63,23 @@ public class MainActivity extends AppCompatActivity {
         listViewBook.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String longClickedItem= (String) listViewBook.getAdapter().getItem(position);
-                Log.d("booklogger",longClickedItem);
+
+                TextView namaBuku = (TextView)view.findViewById(R.id.textJudulBuku);
+                TextView halaman = (TextView)view.findViewById(R.id.textJumlahHalaman);
+                TextView pengarang = (TextView)view.findViewById(R.id.textNamaPengarang);
+
+                String namaBuku2 = (String) namaBuku.getText();
+                String halaman2 = (String) halaman.getText();
+                String pengarang2 = (String) pengarang.getText();
+
+                showUbahDialog(namaBuku2, halaman2, pengarang2, position);
+
+                Log.d("booklogger",namaBuku2);
                 return false;
         }
     });
 
         //mengaktifkan fungsi button simpan
-
         btnSimpan.setOnClickListener(new View.OnClickListener(){
             @Override
             public  void onClick(View v){
@@ -114,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     editTextNama.setText("");
                     editTextHalaman.setText("");
                 }
+
                 else
                 {
                     Toast.makeText(getApplicationContext(), "Terdapat data kosong, silahkan coba lagi.", Toast.LENGTH_SHORT).show();
@@ -172,6 +156,32 @@ public class MainActivity extends AppCompatActivity {
         deleteDialog.show();
     }
 
+    private void showUbahDialog(final String namaBuku2, final String halaman2, final String pengarang2, final int position){
+        AlertDialog.Builder deleteDialog=new AlertDialog.Builder(this);
+        deleteDialog.setMessage("Anda yakin untuk mengubah \n"+namaBuku2+"?");
+        deleteDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                arrayBuku.remove(position);
+                adapter.notifyDataSetChanged();
+                editTextJudul.setText(namaBuku2);
+                editTextHalaman.setText(halaman2);
+                editTextNama.setText(pengarang2);
+
+
+            }
+        });
+
+        deleteDialog.setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        deleteDialog.show();
+    }
 
 
 

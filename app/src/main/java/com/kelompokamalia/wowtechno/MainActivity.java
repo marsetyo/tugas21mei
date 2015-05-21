@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import java.util.*;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
     Button btnSimpan;
     ListView listViewBook;
     EditText editTextJudul, editTextNama, editTextHalaman;
+
+    //inisialiasi arraylist yang digunakan pada program ini
+    ArrayList<String> listOfBook=new ArrayList<>();
 
 
     @Override
@@ -26,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
         editTextNama = (EditText) findViewById(R.id.inputNamaPengarang);
         editTextHalaman = (EditText) findViewById(R.id.inputJumlahHalaman);
         btnSimpan = (Button) findViewById(R.id.btn_simpan);
+
+        listOfBook.add("Laskar Pelangi");
+        listOfBook.add("5 cm");
+        listOfBook.add("Ayat ayat cinta");
+        listOfBook.add("Lima Menara");
+        listOfBook.add("Tutorial Pemrograman Android");
     }
 
 

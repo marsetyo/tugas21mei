@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import java.util.*;
+import android.support.v4.util.SimpleArrayMap;
+import android.widget.ArrayAdapter;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
     //inisialiasi arraylist yang digunakan pada program ini
     ArrayList<String> listOfBook=new ArrayList<>();
+
+    //deklarasi arrayadapter
+    ArrayAdapter<String> adapter;
 
 
     @Override
@@ -36,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         listOfBook.add("Ayat ayat cinta");
         listOfBook.add("Lima Menara");
         listOfBook.add("Tutorial Pemrograman Android");
+
+        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listOfBook);
     }
 
 

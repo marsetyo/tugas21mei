@@ -1,17 +1,31 @@
 package com.kelompokamalia.wowtechno;
 
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
+
+    Button btnSimpan;
+    ListView listViewBook;
+    EditText editTextJudul, editTextNama, editTextHalaman;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        listViewBook = (ListView) findViewById(R.id.listView_output);
+        editTextJudul = (EditText) findViewById(R.id.inputJudulBuku);
+        editTextNama = (EditText) findViewById(R.id.inputNamaPengarang);
+        editTextHalaman = (EditText) findViewById(R.id.inputJumlahHalaman);
+        btnSimpan = (Button) findViewById(R.id.btn_simpan);
     }
 
 

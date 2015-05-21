@@ -11,21 +11,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/inputJudulBuku"
             android:layout_gravity="center_horizontal"
-        android:text="masukkan judul buku" />
+            android:hint="Masukkan Judul Buku"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/inputNamaPengarang"
         android:layout_gravity="center_horizontal"
-        android:text="masukkan nama pengarang" />
+        android:hint="Masukkan Nama Pengarang"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/inputJumlahHalaman"
         android:layout_gravity="center_horizontal"
-        android:text="masukkan jumlah halaman" />
+        android:hint="Masukkan Jumlah Halaman"/>
 
     <Button
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:id="@+id/btn_simpan"
             android:layout_gravity="center_horizontal"/>
 
-        <ListView
+    <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listView_output" />

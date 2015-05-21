@@ -25,11 +25,19 @@ public class MainActivity extends AppCompatActivity {
     ListView listViewBook;
     EditText editTextJudul, editTextNama, editTextHalaman;
 
+
+    ArrayList<Buku> arrayBuku = Buku.getBukus();
+
+
+
     //inisialiasi arraylist yang digunakan pada program ini
-    ArrayList<String> listOfBook=new ArrayList<>();
+    //ArrayList<String> listOfBook=new ArrayList<>();
+
 
     //deklarasi arrayadapter
-    ArrayAdapter<String> adapter;
+    //ArrayAdapter<String> adapter;
+
+    CustomBukuAdapter adapter;
 
 
     @Override
@@ -43,7 +51,15 @@ public class MainActivity extends AppCompatActivity {
         editTextHalaman = (EditText) findViewById(R.id.inputJumlahHalaman);
         btnSimpan = (Button) findViewById(R.id.btn_simpan);
 
-        listOfBook.add("Laskar Pelangi");
+
+        adapter = new CustomBukuAdapter(this, arrayBuku);
+
+        ListView listView = (ListView) findViewById(R.id.listView_output);
+        listView.setAdapter(adapter);
+
+
+
+        /*listOfBook.add("Laskar Pelangi");
         listOfBook.add("5 cm");
         listOfBook.add("Ayat ayat cinta");
         listOfBook.add("Lima Menara");
@@ -51,47 +67,52 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listOfBook);
 
-        listViewBook.setAdapter(adapter);
+        listViewBook.setAdapter(adapter);*/
 
         listViewBook.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String clickedItem= (String) parent.getAdapter().getItem(position);
-            Log.d("booklogger",clickedItem);
+                String clickedItem= (String) parent.getAdapter().getItem(position);
+                Log.d("booklogger",clickedItem);
+
             }
         });
 
         listViewBook.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            String longClickedItem= (String) parent.getAdapter().getItem(position);
-            Log.d("booklogger",longClickedItem);
-            return false;
+                String longClickedItem= (String) parent.getAdapter().getItem(position);
+                Log.d("booklogger",longClickedItem);
+                return false;
         }
     });
 
         //mengaktifkan fungsi button simpan
+
         btnSimpan.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                String title = editTextJudul.getText().toString();
+            public  void onClick(View v){
+                String judulBuku = editTextJudul.getText().toString();
+                String namaPengarang = editTextNama.getText().toString();
+                String jumlahHalaman = editTextHalaman.getText().toString();
 
 
-                if(!title.isEmpty())
+
+                if(!judulBuku.isEmpty() && !namaPengarang.isEmpty() && !jumlahHalaman.isEmpty())
                 {
-                    listOfBook.add(title);
-                    adapter.notifyDataSetChanged();
+                    Buku newBuku = new Buku(judulBuku, namaPengarang, jumlahHalaman);
+                    adapter.add(newBuku);
                     editTextJudul.setText("");
+                    editTextNama.setText("");
+                    editTextHalaman.setText("");
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "judul buku wajib diisi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Terdapat data kosong, silahkan coba lagi.", Toast.LENGTH_SHORT).show();
                 }
+
             }
-
-
-          }
-        );
+        });
 
 
     }
@@ -120,7 +141,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showDeleteDialog(final String bookTitle){
+
+
+    /*private void showDeleteDialog(final String bookTitle){
         AlertDialog.Builder deleteDialog=new AlertDialog.Builder(this);
         deleteDialog.setMessage("Anda yakin untuk menghapus \n"+bookTitle+"?");
         deleteDialog.setPositiveButton("Ya",new DialogInterface.OnClickListener() {
@@ -142,4 +165,10 @@ public class MainActivity extends AppCompatActivity {
          });
          deleteDialog.show();
         }
+
+*/
+
+
+
+
 }

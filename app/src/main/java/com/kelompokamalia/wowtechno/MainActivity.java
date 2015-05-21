@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 
 
@@ -66,7 +67,30 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     });
-      
+
+        //mengaktifkan fungsi button simpan
+        btnSimpan.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                String title = editTextJudul.getText().toString();
+
+
+                if(!title.isEmpty())
+                {
+                    listOfBook.add(title);
+                    adapter.notifyDataSetChanged();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "judul buku wajib diisi", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+          }
+        );
+
+
     }
 
 

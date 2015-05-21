@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 
 
@@ -116,4 +118,27 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void showDeleteDialog(final String bookTitle){
+        AlertDialog.Builder deleteDialog=new AlertDialog.Builder(this);
+        deleteDialog.setMessage("Anda yakin untuk menghapus \n"+bookTitle+"?");
+        deleteDialog.setPositiveButton("Ya",new DialogInterface.OnClickListener() {
+
+         @Override
+         public void onClick(DialogInterface dialog, int which) {
+         dialog.dismiss();
+         listOfBook.remove(bookTitle);
+         // setelah menghapus, kita perlu meng-update listview
+         adapter.notifyDataSetChanged();
+         }
+         });
+
+         deleteDialog.setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+         @Override
+         public void onClick(DialogInterface dialog, int which) {
+         dialog.dismiss();
+         }
+         });
+         deleteDialog.show();
+        }
 }

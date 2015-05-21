@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     listOfBook.add(title);
                     adapter.notifyDataSetChanged();
+                    editTextJudul.setText("");
                 }
                 else
                 {

@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -52,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
         btnSimpan = (Button) findViewById(R.id.btn_simpan);
 
 
+
         adapter = new CustomBukuAdapter(this, arrayBuku);
 
-        ListView listView = (ListView) findViewById(R.id.listView_output);
+        final ListView listView = (ListView) findViewById(R.id.listView_output);
         listView.setAdapter(adapter);
 
 
@@ -72,8 +74,14 @@ public class MainActivity extends AppCompatActivity {
         listViewBook.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String clickedItem= (String) parent.getAdapter().getItem(position);
-                Log.d("booklogger",clickedItem);
+
+
+                TextView a = (TextView)view.findViewById(R.id.textJudulBuku);
+                String judul = (String) a.getText();
+
+                showDeleteDialog(judul, position);
+                Log.d("booklogger",judul);
+
 
             }
         });
@@ -81,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         listViewBook.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String longClickedItem= (String) parent.getAdapter().getItem(position);
+                String longClickedItem= (String) listViewBook.getAdapter().getItem(position);
                 Log.d("booklogger",longClickedItem);
                 return false;
         }
@@ -141,32 +149,28 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    /*private void showDeleteDialog(final String bookTitle){
+    private void showDeleteDialog(final String judul, final int position){
         AlertDialog.Builder deleteDialog=new AlertDialog.Builder(this);
-        deleteDialog.setMessage("Anda yakin untuk menghapus \n"+bookTitle+"?");
-        deleteDialog.setPositiveButton("Ya",new DialogInterface.OnClickListener() {
+        deleteDialog.setMessage("Anda yakin untuk menghapus \n"+judul+"?");
+        deleteDialog.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
 
-         @Override
-         public void onClick(DialogInterface dialog, int which) {
-         dialog.dismiss();
-         listOfBook.remove(bookTitle);
-         // setelah menghapus, kita perlu meng-update listview
-         adapter.notifyDataSetChanged();
-         }
-         });
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                arrayBuku.remove(position);
+                // setelah menghapus, kita perlu meng-update listview
+                adapter.notifyDataSetChanged();
+            }
+        });
 
-         deleteDialog.setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
-         @Override
-         public void onClick(DialogInterface dialog, int which) {
-         dialog.dismiss();
-         }
-         });
-         deleteDialog.show();
-        }
-
-*/
+        deleteDialog.setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        deleteDialog.show();
+    }
 
 
 
